@@ -8,8 +8,6 @@ if [ -z $1 ]; then
   exit 1
 fi
 
-WWW_DXR=/var/www/dxr
-
 # Make the tmp directory to work in
 rm -rf nightly-tmp
 mkdir nightly-tmp
@@ -23,8 +21,8 @@ sed -i 's/^target_folder.*$/target_folder=output/' nightly.config
 dxr-build.py --tree $1 nightly.config
 
 # Swap in the newly built index
-mv $WWW_DXR/trees/$1 .
-mv output/trees/$1 $WWW_DXR/trees
+mv /var/www/dxr/trees/$1 .
+mv output/trees/$1 /var/www/dxr/trees
 
 # Clean up
 cd ..
