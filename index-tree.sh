@@ -9,16 +9,16 @@ if [ -z $1 ]; then
 fi
 
 # Make the tmp directory to work in
-rm -rf nightly-tmp
-mkdir nightly-tmp
-cd nightly-tmp
+rm -rf index-tree-tmp
+mkdir index-tree-tmp
+cd index-tree-tmp
 
-# Copy and modify the config to output to the tmp directory
-cp ../dxr.config nightly.config
-sed -i 's/^target_folder.*$/target_folder=output/' nightly.config
+# Copy and modify dxr.config to output to the tmp directory
+cp ../dxr.config tree.config
+sed -i 's/^target_folder.*$/target_folder=output/' tree.config
 
 # Build the requested tree
-dxr-build.py --tree $1 nightly.config
+dxr-build.py --tree $1 tree.config
 
 # Swap in the newly built index
 mv /var/www/dxr/trees/$1 .
@@ -26,4 +26,4 @@ mv output/trees/$1 /var/www/dxr/trees
 
 # Clean up
 cd ..
-rm -rf nightly-tmp
+rm -rf index-tree-tmp
